@@ -1,4 +1,11 @@
 import streamlit as st
+
+st.set_page_config(
+    page_title="EmoCare AI",
+    page_icon="🧠",
+    layout="wide"
+)
+
 import login
 import dashboard
 

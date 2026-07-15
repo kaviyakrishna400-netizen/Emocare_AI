@@ -9,15 +9,7 @@ def show():
         background:linear-gradient(135deg,#EAF4FF,#F8FAFC);
     }
 
-    .login-box{
-        width:420px;
-        margin:auto;
-        margin-top:70px;
-        background:white;
-        padding:40px;
-        border-radius:20px;
-        box-shadow:0 8px 25px rgba(0,0,0,.12);
-    }
+    
 
     .banner{
         height:90px;
@@ -41,8 +33,7 @@ def show():
     </style>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="login-box">', unsafe_allow_html=True)
-
+   
     st.markdown("""
     <div class="banner">
         🧠 EmoCare AI
@@ -82,7 +73,7 @@ def show():
     if st.button("📝 Create New Account", use_container_width=True):
         st.session_state["show_signup"] = True
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    
 
     # ---------------- SIGNUP FORM ---------------- #
 
