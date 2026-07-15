@@ -1,5 +1,5 @@
 import streamlit as st
-from auth import login_user
+from auth import login_user, register_user
 
 def show():
 
@@ -49,7 +49,12 @@ def show():
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="subtitle">Emotion Detection for Special Children</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="subtitle">Emotion Detection for Special Children</div>',
+        unsafe_allow_html=True
+    )
+
+    # ---------------- LOGIN ---------------- #
 
     email = st.text_input("Email")
     password = st.text_input("Password", type="password")
@@ -70,30 +75,38 @@ def show():
 
     st.button("Continue with Google", use_container_width=True)
 
-    st.markdown(
-        "<p style='text-align:center;'>Don't have an account? <b>Sign Up</b></p>",
-        unsafe_allow_html=True
-    )
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # ---------------- SIGNUP BUTTON ---------------- #
+
+    if st.button("📝 Create New Account", use_container_width=True):
+        st.session_state["show_signup"] = True
 
     st.markdown("</div>", unsafe_allow_html=True)
-    st.markdown("---")
-st.subheader("Create a New Account")
 
-from auth import register_user
+    # ---------------- SIGNUP FORM ---------------- #
 
-name = st.text_input("Full Name")
-new_email = st.text_input("New Email")
-new_password = st.text_input("New Password", type="password")
+    if st.session_state.get("show_signup", False):
 
-if st.button("Create Account", use_container_width=True):
+        st.markdown("---")
+        st.subheader("📝 Create a New Account")
 
-    success = register_user(
-        name.strip(),
-        new_email.strip(),
-        new_password.strip()
-    )
+        name = st.text_input("Full Name")
+        new_email = st.text_input("New Email")
+        new_password = st.text_input("New Password", type="password")
 
-    if success:
-        st.success("✅ Account created successfully! Please sign in.")
-    else:
-        st.error("❌ Email already exists.")
+        if st.button("Create Account", use_container_width=True):
+
+            success = register_user(
+                name.strip(),
+                new_email.strip(),
+                new_password.strip()
+            )
+
+            if success:
+                st.success("✅ Account created successfully!")
+                st.info("Please login with your new account.")
+                st.session_state["show_signup"] = False
+
+            else:
+                st.error("❌ Email already exists.")
