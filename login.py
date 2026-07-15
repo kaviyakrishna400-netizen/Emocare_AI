@@ -76,3 +76,24 @@ def show():
     )
 
     st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("---")
+st.subheader("Create a New Account")
+
+from auth import register_user
+
+name = st.text_input("Full Name")
+new_email = st.text_input("New Email")
+new_password = st.text_input("New Password", type="password")
+
+if st.button("Create Account", use_container_width=True):
+
+    success = register_user(
+        name.strip(),
+        new_email.strip(),
+        new_password.strip()
+    )
+
+    if success:
+        st.success("✅ Account created successfully! Please sign in.")
+    else:
+        st.error("❌ Email already exists.")
